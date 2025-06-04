@@ -95,7 +95,136 @@ def fibtest(func):
               (20,)]
     test(inputs,fibbinaci,func)
 
+#Q6
 
+def sales(salesListA,salesListB):
+    if ((True in salesListA or True in salesListB) and not (True in salesListA and True in salesListB)):
+        return True
+    else:
+        return False
+
+def salestest(func):
+    inputs = [
+    (
+        [False, False, False, False, False, False, False, False, False, False],
+        [False, True, False, False, False, False, False, False, False, False]
+    ),
+    (
+        [False, False, True, False, False, False, False, False, False, True],
+        [False, False, False, False, False, True, False, False, False, False]
+    ),
+    (
+        [True, False, False, False, False, False, False, False, True, False],
+        [False, False, False, False, False, False, False, False, False, False]
+    ),
+    (
+        [False, False, False, True, False, False, False, False, False, False],
+        [False, False, False, False, True, False, False, True, False, False]
+    ),
+    (
+        [False, False, False, False, False, False, True, False, False, False],
+        [False, True, False, False, False, False, False, False, False, True]
+    )]
+
+    test(inputs,sales,func)
+
+#Q7
+
+def dictmerge(dictA,dictB):
+    returndict = dictA
+    for key in dictB.keys():
+        if key not in returndict.keys():
+            returndict.update({key:dictB[key]})
+        else:
+            average = (dictA[key]+dictB[key])/2
+            returndict.update({key:average})
+
+    return returndict
+
+def dicttest(func):
+    inputs = [
+    ({"a": 1.0, "b": 2.0, "c": 3.0},{"b": 20.5, "d": 4.2, "e": 5.1}),
+    ({"x": 10.0, "y": 20.0, "z": 30.0},{"y": 200.3, "z": 300.9, "w": 40.4}),
+    ({"m": 5.5, "n": 15.1},{"n": 25.6, "o": 35.7}),
+    ({"id": 101.0, "score": 88.8},{"score": 99.9, "level": 3.3}),
+    ({"k1": 1.1, "k2": 0.0},{"k2": 2.2, "k3": 3.3})
+]
+
+    test(inputs,dictmerge,func)
+
+#Q8
+
+def factories(factA, factB, n):
+    while n > 0:
+        n -= 1
+        factA,factB = (0.7*factA + 0.3*factB, 0.2*factA + 0.7*factB)
+
+    return (factA,factB)
+
+def factorytest(func):
+    inputs = [(10,8,3),(2,8,9),(8,2,11),(10,19,0),(8,10,7)]
+
+    test(inputs,factories,func)
+
+#Q9
+
+def cheaplist(pricelist):
+    cheapest = 0
+    for item in pricelist:
+        if cheapest == 0:
+            cheapest = item
+        elif item < cheapest:
+            cheapest = item
+            
+    return cheapest
+
+def cheaptest(func):
+    inputs = [
+    ([2.1, 4.2, 6.3, 8.4, 10.5, 12.6],),
+    ([1.2, 3.4, 5.6, 7.8],),
+    ([0.5, 1.5, 2.5],),
+    ([9.9, 8.8, 7.7, 6.6, 5.5],),
+    ([3.3, 2.2, 1.1, 0.0],),
+    ([],)]
+
+    test(inputs,cheaplist,func)
+
+#Q10
+
+def lines(pointsA, pointsB):
+    
+    def computeslope(points):
+        dx = points[0][0]-points[1][0]
+        dy = points[0][1] - points[1][1]
+        if dx == 0:
+            return "Undefined"
+        return dy/dx
+    
+    slopeA = computeslope(pointsA)
+    slopeB = computeslope(pointsB)
+
+
+    if slopeA == "Undefined" or slopeB == "Undefined":
+        return "Undefined"
+    elif slopeA > slopeB:
+        return "A"
+    elif slopeB > slopeA:
+        return "B"
+    else:
+        return "Same"
+
+def linestest(func):
+    inputs = [
+    (((1.0, 2.0), (3.0, 6.0)),((0.0, 0.0), (2.0, 4.0))),
+    (((1.0, 1.0), (4.0, 5.0)),((2.0, 3.0), (6.0, 5.0))),
+    (((-1.0, 2.0), (0.0, 0.0)),((1.0, 1.0), (2.0, 0.0))),
+    (((5.0, 1.0), (5.0, 10.0)),(((3.0, 3.0), (6.0, 9.0)))),
+    (((1.5, 2.5), (3.5, 3.5)),((0.0, 0.0), (4.0, 2.0)))
+]
+
+    test(inputs,lines,func)
+
+    
 def test(inputs, evalfunc, testfunc):
     for input in inputs:
         if evalfunc(*input) != testfunc(*input):
